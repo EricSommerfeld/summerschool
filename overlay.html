@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bildüberlagerung mit Transparenz</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #000;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+    .slider-container {
+      margin-bottom: 20px; /* Abstand unter dem Regler */
+      position: relative;
+      z-index: 10; /* Sicherstellen, dass der Regler oben liegt */
+    }
+    input[type="range"] {
+      width: 60%;
+    }
+    .container {
+      position: relative;
+      display: inline-block;
+      width: 90%;
+      max-width: 1000px;
+      height: auto;
+    }
+    .container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 100px; /* Grundposition der Bilder */
+    }
+    #image1 {
+      z-index: 2;
+      opacity: 0.5;
+      top: 101px; /* Oberes Bild 20px weiter unten als das untere */
+ 	 width: 107%;    /* Bild leicht vergrößern */
+ 	 left: -5%;     /* nach links verschieben, damit es mittig bleibt */
+    }
+    #image2 {
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>transparency</h1>
+
+  <div class="slider-container">
+    <label for="slider">regulator: <span id="value">0.5</span></label><br />
+    <input type="range" id="slider" min="0" max="1" step="0.01" value="0.5" />
+  </div>
+
+  <div class="container">
+    <img id="image2" src="bild2.png" alt="Hintergrundbild" />
+    <img id="image1" src="bild1.png" alt="Overlaybild" />
+  </div>
+
+  <script>
+    const slider = document.getElementById("slider");
+    const image1 = document.getElementById("image1");
+    const value = document.getElementById("value");
+
+    slider.oninput = () => {
+      image1.style.opacity = slider.value;
+      value.textContent = slider.value;
+    };
+  </script>
+
+</body>
+</html>
